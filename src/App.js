@@ -49,7 +49,7 @@ function App() {
           <PrivateRouteAuth path="/signup" exact component={SignUp} />
           <PrivateRouteAuth path="/login" exact component={Login} />
           <Route path="/auth0_callback" exact render={(props) => {
-            handleAuth(props);
+            // handleAuth(props);
             return <Auth0Callback {...props} />
           }} />
           <NavRoute exact component={Profile} path="/profile" />
