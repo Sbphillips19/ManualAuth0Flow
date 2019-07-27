@@ -34,11 +34,11 @@ function App() {
 
   // call as if componentDidMount to see if user is logged in
   // if so extend their session
-  // useEffect(() => {
-  //   if (localStorage.getItem("auth") === "true") {
-  //     renewSession();
-  //   }
-  // });
+  useEffect(() => {
+    if (localStorage.getItem("auth") === "true") {
+      renewSession();
+    }
+  },[]);
 
 
   return (
