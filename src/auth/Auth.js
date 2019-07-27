@@ -86,9 +86,9 @@ const Auth0Provider = (props) => {
   const handleAuthentication = () => {
     console.log("auth0Client", auth0Client);
     if (typeof window !== 'undefined') {
-        auth0Client.parseHash((err, authResult) => {
+        auth0Client.parseHash(async (err, authResult) => {
             if (authResult && authResult.accessToken && authResult.idToken) {
-              setSession(authResult);
+              await setSession(authResult);
               history.replace('/');
             } else if (err) {
               console.log(err)

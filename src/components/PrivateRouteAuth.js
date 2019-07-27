@@ -4,10 +4,13 @@ import { Route } from "react-router-dom";
 import { useAuth0 } from '../auth/Auth';
 
 const PrivateRouteAuth = ({ component: Component, path, ...rest }) => {
-  const { authenticated } = useAuth0();
+  const { authenticated, getUser, user } = useAuth0();
   useEffect(() => {
     const fn = async () => {
       if (authenticated) {
+          debugger;
+          console.log(user);
+        console.log(getUser());
         history.replace('/profile');
       }
     };

@@ -23,14 +23,7 @@ const NavRoute = ({ exact, path, component: Component }) => (
 
 function App() {
 
-  const { renewSession, handleAuthentication, setSession } = useAuth0();
-
-  const handleAuth = (nextState, replace) => {
-    console.log("NEXT STATE", nextState);
-    if (/access_token|id_token|error/.test(nextState.location.hash)) {
-      handleAuthentication()
-    }
-  }
+  const { renewSession } = useAuth0();
 
   // call as if componentDidMount to see if user is logged in
   // if so extend their session
@@ -49,7 +42,6 @@ function App() {
           <PrivateRouteAuth path="/signup" exact component={SignUp} />
           <PrivateRouteAuth path="/login" exact component={Login} />
           <Route path="/auth0_callback" exact render={(props) => {
-            // handleAuth(props);
             return <Auth0Callback {...props} />
           }} />
           <NavRoute exact component={Profile} path="/profile" />
