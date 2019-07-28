@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import auth0 from 'auth0-js';
 import history from '../history';
+import Bluebird from "bluebird";
 
 export const Auth0Context = React.createContext();
 export const useAuth0 = () => useContext(Auth0Context);
@@ -112,7 +113,7 @@ const Auth0Provider = (props) => {
   }
 
   const setSession = async authResult => {
-
+      debugger;
     const expiresAt = JSON.stringify(
       authResult.expiresIn * 1000 + new Date().getTime()
     )
@@ -123,10 +124,20 @@ const Auth0Provider = (props) => {
     
     setAuthenticated(true);
 
-    await auth0Client.client.userInfo(authResult.accessToken, (err, user) => {
-      localStorage.setItem('user', JSON.stringify(user))
-      setUser(JSON.stringify(user));
+    await new Bluebird(function (resolve, reject) {
+    auth0Client.client.userInfo(authResult.accessToken, (err, user) => {
+      if (err) return reject(err)
+      resolve(user);
     })
+    }).then(
+        data => 
+        {
+            localStorage.setItem('user', JSON.stringify(data))
+            setUser(JSON.stringify(data));
+
+        }
+    )
+
   }
 
   const renewSession = async () => {

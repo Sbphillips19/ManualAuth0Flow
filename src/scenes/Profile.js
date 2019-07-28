@@ -5,7 +5,8 @@ import { useAuth0 } from '../auth/Auth';
 
 const Profile = () => {
     
-    const { getUser, logout  } = useAuth0();
+    const { getUser, user, logout  } = useAuth0();
+    debugger;
     console.log("HERE IS THE USER", getUser())
     
     return (
